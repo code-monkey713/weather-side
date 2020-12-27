@@ -15,7 +15,7 @@
       <button class="btn btn-danger">Weather Dashboard</button>
     </navbar>
     <row-two class="row">
-      <col-one class="col-4">
+      <col-one class="col-md-4">
         <search>
           <p>Search by city name or the zipcode.</p>
           <input type="text" placeholder="City"><button type="button"
@@ -23,17 +23,11 @@
           <input type="text" placeholder="Zip Code"><button type="button"
             class="query_btn gradient-button gradient-button-1">Search</button><br>
         </search>
-        <city-list>
-          List of City Searched
-          <ul>
-            <li>City One</li>
-            <li>City Two</li>
-            <li>City Three</li>
-            <li>City Four</li>
-          </ul>
+        <city-list id="cities">
+          
         </city-list>
       </col-one>
-      <col-two class="col-8">
+      <col-two class="col-md-8">
         <div class="row">
           <main-display class="col">
             <h4>City: <span id="city"></span><img id="weather_image" src=""></h4>
@@ -48,19 +42,19 @@
           5-Day Forecast:
         </forecast-header>
         <forecast class="row">
-          <day-one class="col">
+          <day-one class="col d-flex flex-column">
             Day + 1 forecast
           </day-one>
-          <day-two class="col">
+          <day-two class="col d-flex flex-column">
             Day + 2 forecast
           </day-two>
-          <day-three class="col">
+          <day-three class="col d-flex flex-column">
             Day + 3 forecast
           </day-three>
-          <day-four class="col">
+          <day-four class="col d-flex flex-column">
             Day + 4 forecast
           </day-four>
-          <day-five class="col">
+          <day-five class="col d-flex flex-column">
             Day + 5 forecast
           </day-five>
           

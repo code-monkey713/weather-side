@@ -1,3 +1,38 @@
+let myCities = [
+  {
+    id: "0",
+    cityName: "Houston",
+    lon: "-95.36",
+    lat: "29.76",
+    desc: "scattered clouds"
+  },
+  {
+    id: "1",
+    cityName: "Seoul",
+    lon: "126.98",
+    lat: "37.57",
+    desc: "overcast clouds"
+  }
+]
+
+myCities.forEach(function(thisCity){
+  const city = $('<div>').attr({'class': 'row'}, {'id': 'myCities.id'});
+  const cityEl = $('<div>').attr({'class': 'col-12'});
+  $('#cities').append(city);
+  const cityBtn = $('<button>').text(`${thisCity.cityName}: ${thisCity.desc}`);
+  // cityBtn.text(myCities[thisCity.cityName]);
+  // $('cityBtn').val('Houston');
+  cityEl.append(cityBtn);
+  city.append(cityEl);
+});
+// var arr = [
+//   "Hi",
+//   "Hello",
+//   "Bonjour"
+// ];
+// arr.push("Hola");
+// console.log(arr[3]);
+
 $( document ).ready(function() {
   var appID = "3d865cbadda85d3313ed6811a5f0f35d";
 
