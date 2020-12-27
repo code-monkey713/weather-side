@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <title>Weather Side Are You On?</title>
+</head>
+
+<body class="coolsky">
+  <container class="container">
+    <navbar class="justify-content-center row">
+      <button class="btn btn-danger">Weather Dashboard</button>
+    </navbar>
+    <row-two class="row">
+      <col-one class="col-4">
+        <search>
+          <p>Search by city name or the zipcode.</p>
+          <input type="text" placeholder="City"><button type="button"
+            class="query_btn gradient-button gradient-button-1">Search</button><br>
+          <input type="text" placeholder="Zip Code"><button type="button"
+            class="query_btn gradient-button gradient-button-1">Search</button><br>
+        </search>
+        <city-list>
+          List of City Searched
+          <ul>
+            <li>City One</li>
+            <li>City Two</li>
+            <li>City Three</li>
+            <li>City Four</li>
+          </ul>
+        </city-list>
+      </col-one>
+      <col-two class="col-8">
+        <div class="row">
+          <main-display class="col">
+            <h4>City: <span id="city"></span><img id="weather_image" src=""></h4>
+            <p>Temperature: <span id="temperature"></span></p>
+            <p>Main Weather: <span id="main_weather"></span></p>
+            <p>Description: <span id="description_weather"></span></p>
+            <p>Pressure: <span id="pressure"></span></p>
+            <p>Humidity: <span id="humidity"></span></p>
+          </main-display>
+        </div>
+        <forecast-header class="row justify-content-center">
+          5-Day Forecast:
+        </forecast-header>
+        <forecast class="row">
+          <day-one class="col">
+            Day + 1 forecast
+          </day-one>
+          <day-two class="col">
+            Day + 2 forecast
+          </day-two>
+          <day-three class="col">
+            Day + 3 forecast
+          </day-three>
+          <day-four class="col">
+            Day + 4 forecast
+          </day-four>
+          <day-five class="col">
+            Day + 5 forecast
+          </day-five>
+          
+        </forecast>
+      </col-two>
+    </row-two>
+  </container>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="assets/script.js"></script>
+</body>
+
+</html>
