@@ -29,7 +29,7 @@
 .gradient-button {
   /* margin: 10px; */
   font-family: "Arial Black", Gadget, sans-serif;
-  font-size: 20px;
+  font-size: 17px;
   /* padding: 15px; */
   text-align: center;
   text-transform: uppercase;
@@ -56,3 +56,18 @@
 /* div {
   width: 100%;
 } */
+
+.cityButton {
+  width: 100%;
+  color: red;
+  background-color: red;
+  margin: 5px;
+}
+
+#cities {
+  margin: 3px;
+}
+
+.capitalise {
+  text-transform: capitalize;
+}

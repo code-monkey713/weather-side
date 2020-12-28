@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="assets/reset.css" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
   <link rel="stylesheet" href="assets/style.css" />
   <title>Weather Side Are You On?</title>
@@ -12,7 +13,7 @@
 <body class="coolsky">
   <container class="container">
     <navbar class="justify-content-center row">
-      <button class="btn btn-danger">Weather Dashboard</button>
+      <button class="btn btn-danger col-12"><h2>Weather Dashboard</h2></button>
     </navbar>
     <row-two class="row">
       <col-one class="col-md-4">
@@ -30,7 +31,7 @@
       <col-two class="col-md-8">
         <div class="row">
           <main-display class="col">
-            <h4>City: <span id="city"></span><img id="weather_image" src=""></h4>
+            <h4><span id="city"></span><img id="weather_image" src=""></h4>
             <p>Temperature: <span id="temperature"></span></p>
             <p>Main Weather: <span id="main_weather"></span></p>
             <p>Description: <span id="description_weather"></span></p>
