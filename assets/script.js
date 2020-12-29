@@ -19,6 +19,10 @@ let currLongitude;
 let currLatitude;
 let currCity;
 let currDesc;
+let APIkey = '3d865cbadda85d3313ed6811a5f0f35d';
+let searchCity = 'Houston';
+let queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&appid=${APIkey}`;
+let UVindex = '';
 
 myCities.forEach(function(thisCity){
   const city = $('<div>').attr({'class': 'row'}, {'id': 'myCities.id'});
@@ -29,6 +33,7 @@ myCities.forEach(function(thisCity){
   cityEl.append(cityBtn);
   city.append(cityEl);
 });
+
 // var arr = [
 //   "Hi",
 //   "Hello",
@@ -37,27 +42,46 @@ myCities.forEach(function(thisCity){
 // arr.push("Hola");
 // console.log(arr[3]);
 
-let APIkey = '3d865cbadda85d3313ed6811a5f0f35d';
-let searchCity = 'Houston';
-let queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&appid=${APIkey}`;
+function getForecast(lat, lon) {
+  console.log('This is the forecast function!');
+  console.log(lat);
+  console.log(lon);
+  let forecastURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely&appid=${APIkey}`;
+  $(document).ready(function () {
+    $.ajax({
+      url: forecastURL,
+      method: 'GET'
+    }).then(function (giveFore) {
+      console.log(giveFore);
+      UVindex = giveFore.current.uvi;
+      console.log(UVindex);
+      $("#UVindex").html(UVindex);
+    })
+  })
+}
 
 $(document).ready(function () {
-
   $.ajax({
     url: queryURL,
-    method: "GET"
+    method: 'GET'
   }).then(function (response) {
     console.log(response);
-    // Create CODE HERE to transfer content to HTML
     $('#city').html(`${response.name} Weather Details`);
     $("#temperature").html(response.main.temp);
     $("#weather_image").attr("src", "http://openweathermap.org/img/w/" + response.weather[0].icon + ".png");
-    $("#main_weather").html(response.weather[0].main);
-    $("#description_weather").html(response.weather[0].description);
-    $("#pressure").html(response.main.pressure);
+    // $("#main_weather").html(response.weather[0].main);
+    // $("#description_weather").html(response.weather[0].description);
+    // $("#pressure").html(response.main.pressure);
     $("#humidity").html(response.main.humidity);
+    $("#wind-speed").html(response.wind.speed);
+    $("#UVindex").html(UVindex);
+    currLongitude = response.coord.lon;
+    console.log(currLongitude);
+    currLatitude = response.coord.lat;
+    console.log(currLatitude);
+    getForecast(currLatitude, currLongitude);
+    
   });
-
 });
 
 // $( document ).ready(function() {
