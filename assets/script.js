@@ -54,15 +54,26 @@ function getUVindex(lat, lon) {
       //console.log(UVindex);
       //let date = unixTime(giveDaily.daily[1].dt);
       $("#UVindex").html(UVindex);
+
+      //this is creating the 5-days forecast elements
       for (i = 1; i < 6; i++) {
         let date = unixTime(giveDaily.daily[i].dt);
-        console.log(date);
+        //console.log(date);
+        //$(`#day${i}.class"fDate"`).html(date);
+        //$("#day1").html(date);
         let icon = giveDaily.daily[i].weather[0].icon;
-        console.log(icon);
+        //console.log(icon);
         let temp = kelvin2F(giveDaily.daily[i].temp.eve);
-        console.log(temp);
+        //console.log(temp);
         let humidity = giveDaily.daily[i].humidity;
-        console.log(humidity);
+        //console.log(humidity);
+        $(`#day${i}`).html(`<div>
+          ${date}
+          <img src="http://openweathermap.org/img/w/${icon}.png"></img>
+          <p>Temp: ${temp} °F</p>
+          Humidity: ${humidity}%
+          </div>
+        `);
       }
       
       //getForecast();
