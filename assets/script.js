@@ -21,7 +21,7 @@ let currCity;
 let currDesc;
 let APIkey = '3d865cbadda85d3313ed6811a5f0f35d';
 let searchCity = 'Houston';
-let queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&appid=${APIkey}`;
+let queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&units=imperial&appid=${APIkey}`;
 let UVindex = '';
 
 myCities.forEach(function(thisCity){
@@ -42,22 +42,37 @@ myCities.forEach(function(thisCity){
 // arr.push("Hola");
 // console.log(arr[3]);
 
-function getForecast(lat, lon) {
-  console.log('This is the forecast function!');
-  console.log(lat);
-  console.log(lon);
-  let forecastURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely&appid=${APIkey}`;
+function getUVindex(lat, lon) {
+  let UVindexURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely&appid=${APIkey}`;
   $(document).ready(function () {
     $.ajax({
-      url: forecastURL,
+      url: UVindexURL,
       method: 'GET'
-    }).then(function (giveFore) {
-      console.log(giveFore);
-      UVindex = giveFore.current.uvi;
-      console.log(UVindex);
+    }).then(function (giveDaily) {
+      console.log(giveDaily);
+      UVindex = giveDaily.current.uvi;
+      //console.log(UVindex);
+      //let date = unixTime(giveDaily.daily[1].dt);
       $("#UVindex").html(UVindex);
+      for (i = 1; i < 6; i++) {
+        let date = unixTime(giveDaily.daily[i].dt);
+        console.log(date);
+        let icon = giveDaily.daily[i].weather[0].icon;
+        console.log(icon);
+        let temp = kelvin2F(giveDaily.daily[i].temp.eve);
+        console.log(temp);
+        let humidity = giveDaily.daily[i].humidity;
+        console.log(humidity);
+      }
+      
+      //getForecast();
     })
   })
+}
+
+function getForecast(i) {
+  //console.log('This is function to get the forecast.');
+
 }
 
 $(document).ready(function () {
@@ -66,9 +81,10 @@ $(document).ready(function () {
     method: 'GET'
   }).then(function (response) {
     console.log(response);
-    $('#city').html(`${response.name} Weather Details`);
-    $("#temperature").html(response.main.temp);
-    $("#weather_image").attr("src", "http://openweathermap.org/img/w/" + response.weather[0].icon + ".png");
+    let currDate = moment().format('L');
+    $('#city').html(`${response.name} (${currDate})`);
+    $('#temperature').html(response.main.temp + '°F');
+    $('#weather_image').attr('src', 'http://openweathermap.org/img/w/' + response.weather[0].icon + '.png');
     // $("#main_weather").html(response.weather[0].main);
     // $("#description_weather").html(response.weather[0].description);
     // $("#pressure").html(response.main.pressure);
@@ -76,13 +92,27 @@ $(document).ready(function () {
     $("#wind-speed").html(response.wind.speed);
     $("#UVindex").html(UVindex);
     currLongitude = response.coord.lon;
-    console.log(currLongitude);
+    //console.log(currLongitude);
     currLatitude = response.coord.lat;
-    console.log(currLatitude);
-    getForecast(currLatitude, currLongitude);
-    
+    //console.log(currLatitude);
+    getUVindex(currLatitude, currLongitude);
+    //getForecast();
   });
 });
+
+function unixTime(uTime) {
+  let unixTime = uTime;
+  let milliseconds = unixTime * 1000;
+  let dateObject = new Date(milliseconds);
+  let humanDateFormat = dateObject.toLocaleDateString();
+  return humanDateFormat;
+}
+
+function kelvin2F (temp) {
+  temp = (temp - 273.15) * 1.80 + 32;
+  temp = parseFloat(temp).toFixed(2);
+  return temp;
+}
 
 // $( document ).ready(function() {
 //   var appID = "3d865cbadda85d3313ed6811a5f0f35d";
@@ -139,21 +169,3 @@ $(document).ready(function () {
 //           // console.log(searchData);
 //       });
 //   })
-
-//   // Optional Code for temperature conversion
-//   var fahrenheit = true;
-
-//   $("#convertToCelsius").click(function() {
-//       if (fahrenheit) {
-//           $("#temperature").text(((($("#temperature").text() - 32) * 5) / 9));
-//       }
-//       fahrenheit = false;
-//   });
-
-//   $("#convertToFahrenheit").click(function() {
-//       if (fahrenheit === false) {
-//           $("#temperature").text((($("#temperature").text() * (9/5)) + 32));
-//       }
-//       fahrenheit = true;
-//   });
-// });

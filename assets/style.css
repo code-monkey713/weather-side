@@ -71,3 +71,7 @@
 .capitalise {
   text-transform: capitalize;
 }
+
+.searcharea {
+  margin: 10px;
+}

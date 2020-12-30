@@ -16,7 +16,7 @@
       <button class="btn btn-danger col-12"><h2>Weather Dashboard</h2></button>
     </navbar>
     <row-two class="row">
-      <col-one class="col-md-4">
+      <col-one class="col-md-4 searcharea">
         <search>
           <p>Search by city name or the zipcode.</p>
           <input type="text" placeholder="City"><button type="button"
@@ -28,38 +28,29 @@
           
         </city-list>
       </col-one>
-      <col-two class="col-md-8">
-        <div class="row">
+      <col-two class="col-md-7">
+        <mainbody class="row">
           <main-display class="col">
             <h4><span id="city"></span><img id="weather_image" src=""></h4>
             <p>Temperature: <span id="temperature"></span></p>
-            <p>Humidity: <span id="humidity"></span></p>
-            <p>Wind Speed: <span id="wind-speed"></span></p>
+            <p>Humidity: <span id="humidity"></span>%</p>
+            <p>Wind Speed: <span id="wind-speed"></span> MPH</p>
             <p>UV Index: <span id="UVindex"></span></p>
-            <!-- <p>Main Weather: <span id="main_weather"></span></p>
-            <p>Description: <span id="description_weather"></span></p>
-            <p>Pressure: <span id="pressure"></span></p> -->
-            
           </main-display>
-        </div>
+        </mainbody>
         <forecast-header class="row justify-content-center">
           5-Day Forecast:
         </forecast-header>
         <forecast class="row">
-          <day-one class="col d-flex flex-column">
-            Day + 1 forecast
+          <day-one class="col d-flex flex-column forecast card text-white bg-primary" id="1">
           </day-one>
-          <day-two class="col d-flex flex-column">
-            Day + 2 forecast
+          <day-two class="col d-flex flex-column forecast card text-white bg-primary" id="2">
           </day-two>
-          <day-three class="col d-flex flex-column">
-            Day + 3 forecast
+          <day-three class="col d-flex flex-column forecast card text-white bg-primary" id="3">
           </day-three>
-          <day-four class="col d-flex flex-column">
-            Day + 4 forecast
+          <day-four class="col d-flex flex-column forecast card text-white bg-primary" id="4">
           </day-four>
-          <day-five class="col d-flex flex-column">
-            Day + 5 forecast
+          <day-five class="col d-flex flex-column forecast card text-white bg-primary" id="5">
           </day-five>
           
         </forecast>
