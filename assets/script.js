@@ -51,9 +51,19 @@ function getUVindex(lat, lon) {
     }).then(function (giveDaily) {
       console.log(giveDaily);
       UVindex = giveDaily.current.uvi;
+      //UVindex = 8;
       //console.log(UVindex);
       //let date = unixTime(giveDaily.daily[1].dt);
       $("#UVindex").html(UVindex);
+      if (UVindex <= 2) {
+        $('#UVindex').css('background-color', 'green');
+      } else if (UVindex > 2 && UVindex <= 5) {
+        $('#UVindex').css('background-color', 'yellow');
+      } else if (UVindex > 5 && UVindex <= 7) {
+        $('#UVindex').css('background-color', 'orange');
+      } else if (UVindex > 7) {
+        $('#UVindex').css('background-color', 'darkred');
+      }
 
       //this is creating the 5-days forecast elements
       for (i = 1; i < 6; i++) {
