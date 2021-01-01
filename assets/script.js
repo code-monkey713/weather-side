@@ -16,9 +16,11 @@
 // ]
 
 let APIkey = '3d865cbadda85d3313ed6811a5f0f35d';
+let queryURL = '';
+let arrCities = [];
 //let searchCity = '';
-let UVindex = '';
-let buttons = 'testing';
+//let UVindex = '';
+//let buttons = 'testing';
 
 // myCities.forEach(function(thisCity){
 //   const city = $('<div>').attr({'class': 'row'}, {'id': 'myCities.id'});
@@ -33,7 +35,7 @@ let buttons = 'testing';
 $(document).ready(function () {
   if (localStorage.getItem("lastSearch") != null) {
     lastCity = localStorage.getItem("lastSearch");
-    searchWeather(lastCity);
+    searchWeather(lastCity, false);
   } 
 });
 
@@ -45,7 +47,7 @@ function getUVindex(lat, lon) {
       method: 'GET'
     }).then(function (giveDaily) {
       console.log(giveDaily);
-      UVindex = giveDaily.current.uvi;
+      let UVindex = giveDaily.current.uvi;
       //UVindex = 8;
       //console.log(UVindex);
       //let date = unixTime(giveDaily.daily[1].dt);
@@ -80,8 +82,10 @@ function getUVindex(lat, lon) {
 
 function searchWeather(city, zipcode) {
   $(document).ready(function () {
-    let queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${APIkey}`;
-    // let zipQuery = `https://api.openweathermap.org/data/2.5/weather?zip=${zipcode}&appid=${APIkey}`;
+    if (zipcode === false) {queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${APIkey}`;
+    } else {
+      queryURL = `https://api.openweathermap.org/data/2.5/weather?zip=${zipcode}&appid=${APIkey}`;
+    }
     $.ajax({
       url: queryURL, 
       method: 'GET'
@@ -99,7 +103,11 @@ function searchWeather(city, zipcode) {
       currLongitude = response.coord.lon;
       
       localStorage.setItem('lastSearch', `${response.name}`);
-      addCity(response.name, response.weather[0].description);
+      //addCity(response.name, response.weather[0].description);
+      addCityName(response.name);
+      $('.cityButton').on('click', (function () {
+        searchWeather($(this).text(), false);
+      }));
       getUVindex(currLatitude, currLongitude);
     });
   });
@@ -107,10 +115,15 @@ function searchWeather(city, zipcode) {
 
 function addCity(name, desc) {
   let addCity = $('<div>');
-  // let cityName = $('<button>').text(`${name} : ${desc}`).attr('class', 'col-12 bg-primary cityButton');
-  let cityName = $('<button>').text(`${name}`).attr('class', 'col-12 bg-primary cityButton');
+  let cityName = $('<button>').text(`${name} : ${desc}`).attr('class', 'cityButton col-12 bg-primary').prop('value', `${name}`);
+  //let cityName = $('<button>').text(`${name}`).attr('class', 'col-12 bg-primary cityButton');
   addCity.append(cityName);
   $('#cities').append(addCity);
+}
+
+function addCityName(name) {
+  let cityName = $('<button>').text(`${name}`).attr('class', 'cityButton col-12 bg-primary').prop('value', `${name}`);
+  $('#cities').append(cityName);
 }
 
 function unixTime(uTime) {
@@ -154,10 +167,3 @@ $('#zipText').keypress(function (event) {
     searchWeather(false, searchZip);
   }
 });
-
-$('#cities').on('click', (function() {
-  console.log('This item list was clicked on');
-  let clickedName = $(".cityButton"(this).text());
-  console.log(clickedName);
-  //searchWeather(clickedName, false);
-}));
