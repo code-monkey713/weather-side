@@ -157,7 +157,7 @@ $('#zipText').keypress(function (event) {
 
 $('#cities').on('click', (function() {
   console.log('This item list was clicked on');
-  let clickedName = $(".cityButton".text());
+  let clickedName = $(".cityButton"(this).text());
   console.log(clickedName);
   //searchWeather(clickedName, false);
 }));
