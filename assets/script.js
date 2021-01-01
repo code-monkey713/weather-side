@@ -70,11 +70,12 @@ function getUVindex(lat, lon) {
   })
 }
 
-function citySearch(city) {
+function searchWeather(city, zipcode) {
   $(document).ready(function () {
     let queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${APIkey}`;
+    // let zipQuery = `https://api.openweathermap.org/data/2.5/weather?zip=${zipcode}&appid=${APIkey}`;
     $.ajax({
-      url: queryURL,
+      url: queryURL, 
       method: 'GET'
     }).then(function (response) {
       console.log(response);
@@ -84,6 +85,7 @@ function citySearch(city) {
       $('#weather_image').attr('src', 'http://openweathermap.org/img/w/' + response.weather[0].icon + '.png');
       $("#humidity").html(response.main.humidity);
       $("#wind-speed").html(response.wind.speed);
+      $("#country").html(getCountryName(response.sys.country));
       $("#UVindex").html(UVindex);
       currLatitude = response.coord.lat;
       currLongitude = response.coord.lon;
@@ -110,36 +112,30 @@ function kelvin2F (temp) {
   return temp;
 }
 
-// refactor these codes below to incorporate with functions above
-
 $('.citybtn').click(function(event) {
   event.preventDefault();
-  // console.log('City search on click event!')
   let searchCity = $( '#cityText' ).val();
-  citySearch(searchCity);
+  searchWeather(searchCity, false);
 });
 
 $('#cityText').keypress(function (event) {
   if (event.keyCode === 13) {
     event.preventDefault();
-    // console.log('Enter key searched was pressed on city field');
     let searchCity = $( '#cityText' ).val();
-    citySearch(searchCity);
+    searchWeather(searchCity, false);
   }
 });
 
 $('.zipbtn').click(function(event) {
   event.preventDefault();
-  // console.log('Zip code search on click event!')
   let searchZip = $( '#zipText' ).val();
-  citySearch(searchZip);
+  searchWeather(false, searchZip);
 });
 
 $('#zipText').keypress(function (event) {
   if (event.keyCode === 13) {
     event.preventDefault();
-    // console.log('Enter key searched was pressed on zip code field');
     let searchZip = $( '#zipText' ).val();
-    citySearch(searchZip);
+    searchWeather(false, searchZip);
   }
 });
