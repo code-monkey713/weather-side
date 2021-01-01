@@ -1,5 +1,19 @@
-let currHour = moment().format('H');
-// let currHour = 7;
+// let myCities = [
+//   {
+//     cityName: "Houston",
+//     lon: "-95.36",
+//     lat: "29.76"
+//   },
+//   {
+//     cityName: "Seoul",
+//     lon: "126.98",
+//     lat: "37.57"
+//   }
+// ]
+
+//let currHour = moment().format('H');
+let currHour = 7;
+//console.log(currHour);
 switch (currHour) {
   case currHour < 8:
     $('document.body').addClass('moonlitnight');
@@ -12,9 +26,24 @@ switch (currHour) {
     break;
 }
 
+
+
 let APIkey = '3d865cbadda85d3313ed6811a5f0f35d';
 let queryURL = '';
 let arrCities = [];
+//let searchCity = '';
+//let UVindex = '';
+//let buttons = 'testing';
+
+// myCities.forEach(function(thisCity){
+//   const city = $('<div>').attr({'class': 'row'}, {'id': 'myCities.id'});
+//   const cityEl = $('<div>').attr({'class': 'col-12 cityBtn'});
+//   $('#cities').append(city);
+//   const cityBtn = $('<button>').attr({'class': 'col-12 btn-primary cityButton capitalise'}).text(`${thisCity.cityName}: ${thisCity.desc}`);
+//   //cityBtn = text.toUpperCase();
+//   cityEl.append(cityBtn);
+//   city.append(cityEl);
+// });
 
 $(document).ready(function () {
   if (localStorage.getItem("lastSearch") != null) {
@@ -32,6 +61,9 @@ function getUVindex(lat, lon) {
     }).then(function (giveDaily) {
       console.log(giveDaily);
       let UVindex = giveDaily.current.uvi;
+      //UVindex = 8;
+      //console.log(UVindex);
+      //let date = unixTime(giveDaily.daily[1].dt);
       $("#UVindex").html(UVindex);
       if (UVindex <= 2) {
         $('#UVindex').css('background-color', 'green');
@@ -84,31 +116,36 @@ function searchWeather(city, zipcode) {
       currLongitude = response.coord.lon;
       
       localStorage.setItem('lastSearch', `${response.name}`);
-      addCityName(response.name);
-      $('.cityButton').on('click', (function () {
-        searchWeather($(this).text(), false)
-      }));
+      //addCity(response.name, response.weather[0].description);
+      if (response.name in arrCities) {
+        console.log(response.name);
+      } else {
+        addCityName(response.name);
+        $('.cityButton').on('click', (function () {
+          searchWeather($(this).text(), false)
+        }));
+        console.log(response.name);
+        console.log(arrCities);
+      };
       
       getUVindex(currLatitude, currLongitude);
     });
   });
 }
 
-// function to add the button with the city name and current weather description
 function addCity(name, desc) {
   let addCity = $('<div>');
   let cityName = $('<button>').text(`${name} : ${desc}`).attr('class', 'cityButton col-12 bg-primary').prop('value', `${name}`);
+  //let cityName = $('<button>').text(`${name}`).attr('class', 'col-12 bg-primary cityButton');
   addCity.append(cityName);
   $('#cities').append(addCity);
 }
 
-// function to add the buttonw with the city name
 function addCityName(name) {
   let cityName = $('<button>').text(`${name}`).attr('class', 'cityButton col-12 bg-primary').prop('value', `${name}`);
   $('#cities').append(cityName);
 }
 
-// function to convert UNIX time to standard local date format
 function unixTime(uTime) {
   let unixTime = uTime;
   let milliseconds = unixTime * 1000;
@@ -117,14 +154,12 @@ function unixTime(uTime) {
   return humanDateFormat;
 }
 
-// function to conver the Kelvin degrees to Fehrenheit
 function kelvin2F (temp) {
   temp = (temp - 273.15) * 1.80 + 32;
   temp = parseFloat(temp).toFixed(2);
   return temp;
 }
 
-// onclick events for the city search 
 $('.citybtn').click(function(event) {
   event.preventDefault();
   let searchCity = $( '#cityText' ).val();
@@ -139,7 +174,6 @@ $('#cityText').keypress(function (event) {
   }
 });
 
-// zip code search to be in later releases
 $('.zipbtn').click(function(event) {
   event.preventDefault();
   let searchZip = $( '#zipText' ).val();
