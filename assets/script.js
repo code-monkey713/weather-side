@@ -112,37 +112,34 @@ function kelvin2F (temp) {
 
 // refactor these codes below to incorporate with functions above
 
-$('.query_btn').click(function(event) {
+$('.citybtn').click(function(event) {
   event.preventDefault();
-  console.log('City search on click event!')
+  // console.log('City search on click event!')
+  let searchCity = $( '#cityText' ).val();
+  citySearch(searchCity);
 });
 
 $('#cityText').keypress(function (event) {
   if (event.keyCode === 13) {
     event.preventDefault();
-    console.log('Enter key searched was pressed on city field');
+    // console.log('Enter key searched was pressed on city field');
+    let searchCity = $( '#cityText' ).val();
+    citySearch(searchCity);
   }
 });
 
-// $('#zipText').keypress(function (event) {
-//   if (event.keyCode === 13) {
-//     event.preventDefault();
-//     console.log('Enter key searched was pressed on zip code field');
-//   }
-// });
+$('.zipbtn').click(function(event) {
+  event.preventDefault();
+  // console.log('Zip code search on click event!')
+  let searchZip = $( '#zipText' ).val();
+  citySearch(searchZip);
+});
 
-// $(".query_btn").click(function () {
-//   
-  //var query_param = $(this).prev().val();
-
-  //if ($(this).prev().attr("placeholder") === "City") {
-    
-  //   var weather = "http://api.openweathermap.org/data/2.5/weather?q=" + query_param + "&APPID=" + appID;
-  //   console.log(weather);
-  //   // let searchData = localStorage.setItem(weather);
-  //   let searchData = [];
-  //   searchData = localStorage.setItem('weather', JSON.stringify(weather));
-  //   console.log(searchData);
-  // } else if ($(this).prev().attr("placeholder") === "Zip Code") {
-  //   var weather = "http://api.openweathermap.org/data/2.5/weather?zip=" + query_param + "&APPID=" + appID;
-  // };
+$('#zipText').keypress(function (event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    // console.log('Enter key searched was pressed on zip code field');
+    let searchZip = $( '#zipText' ).val();
+    citySearch(searchZip);
+  }
+});
