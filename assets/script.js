@@ -18,6 +18,7 @@
 let APIkey = '3d865cbadda85d3313ed6811a5f0f35d';
 //let searchCity = '';
 let UVindex = '';
+let buttons = 'testing';
 
 // myCities.forEach(function(thisCity){
 //   const city = $('<div>').attr({'class': 'row'}, {'id': 'myCities.id'});
@@ -28,6 +29,13 @@ let UVindex = '';
 //   cityEl.append(cityBtn);
 //   city.append(cityEl);
 // });
+
+$(document).ready(function () {
+  if (localStorage.getItem("lastSearch") != null) {
+    lastCity = localStorage.getItem("lastSearch");
+    searchWeather(lastCity);
+  } 
+});
 
 function getUVindex(lat, lon) {
   let UVindexURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely&appid=${APIkey}`;
@@ -90,12 +98,19 @@ function searchWeather(city, zipcode) {
       currLatitude = response.coord.lat;
       currLongitude = response.coord.lon;
       
-      // function to create row on #cities from search and set local storage for city name, temp desc, lat, lon
-
-
+      localStorage.setItem('lastSearch', `${response.name}`);
+      addCity(response.name, response.weather[0].description);
       getUVindex(currLatitude, currLongitude);
     });
   });
+}
+
+function addCity(name, desc) {
+  let addCity = $('<div>');
+  // let cityName = $('<button>').text(`${name} : ${desc}`).attr('class', 'col-12 bg-primary cityButton');
+  let cityName = $('<button>').text(`${name}`).attr('class', 'col-12 bg-primary cityButton');
+  addCity.append(cityName);
+  $('#cities').append(addCity);
 }
 
 function unixTime(uTime) {
@@ -139,3 +154,10 @@ $('#zipText').keypress(function (event) {
     searchWeather(false, searchZip);
   }
 });
+
+$('#cities').on('click', (function() {
+  console.log('This item list was clicked on');
+  let clickedName = $(".cityButton".text());
+  console.log(clickedName);
+  //searchWeather(clickedName, false);
+}));
