@@ -94,7 +94,7 @@ function searchWeather(city, zipcode) {
   });
 }
 
-// function to add the button with the city name and current weather description
+// function to add the button with the city name and current weather description - implementing with using of arrays for City name storage
 function addCity(name, desc) {
   let addCity = $('<div>');
   let cityName = $('<button>').text(`${name} : ${desc}`).attr('class', 'cityButton col-12 bg-primary').prop('value', `${name}`);
@@ -102,7 +102,7 @@ function addCity(name, desc) {
   $('#cities').append(addCity);
 }
 
-// function to add the buttonw with the city name
+// function to add the button with the city name
 function addCityName(name) {
   let cityName = $('<button>').text(`${name}`).attr('class', 'cityButton col-12 bg-primary').prop('value', `${name}`);
   $('#cities').append(cityName);
