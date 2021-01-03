@@ -50,7 +50,7 @@ function getUVindex(lat, lon) {
         let temp = kelvin2F(giveDaily.daily[i].temp.eve);
         let humidity = giveDaily.daily[i].humidity;
         $(`#day${i}`).html(`<div>
-          ${date}
+          <b>${date}</b>
           <img src="http://openweathermap.org/img/w/${icon}.png"></img>
           <p>Temp: ${temp} °F</p>
           Humidity: ${humidity}%
@@ -90,9 +90,9 @@ function searchWeather(city, zipcode) {
       currLongitude = response.coord.lon;
       
       localStorage.setItem('lastSearch', `${response.name}`);
-      addCityName(response.name);
+      addCity(response.name, response.weather[0].description)
       $('.cityButton').on('click', (function () {
-        searchWeather($(this).text(), false)
+        searchWeather($(this).val(), false);
       }));
       
       getUVindex(currLatitude, currLongitude);
@@ -100,18 +100,12 @@ function searchWeather(city, zipcode) {
   });
 }
 
-// function to add the button with the city name and current weather description - implementing with using of arrays for City name storage
+// function to add the button with the city name and current weather description
 function addCity(name, desc) {
   let addCity = $('<div>');
   let cityName = $('<button>').text(`${name} : ${desc}`).attr('class', 'cityButton col-12 bg-primary').prop('value', `${name}`);
   addCity.append(cityName);
   $('#cities').append(addCity);
-}
-
-// function to add the button with the city name
-function addCityName(name) {
-  let cityName = $('<button>').text(`${name}`).attr('class', 'cityButton col-12 bg-primary').prop('value', `${name}`);
-  $('#cities').append(cityName);
 }
 
 // function to convert UNIX time to standard local date format
