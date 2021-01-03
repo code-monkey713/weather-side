@@ -74,7 +74,13 @@ function searchWeather(city, zipcode) {
       console.log(response);
       let currDate = moment().format('L');
       $('#city').html(`${response.name} (${currDate})`);
-      $('#temperature').html(response.main.temp + '°F');
+      // temperatures returned from zip code search is not in Fehrenheit temperature by default
+      if (zipcode === false) {
+        $('#temperature').html(response.main.temp + '°F');
+      } else {
+        let temp = kelvin2F(response.main.temp);
+        $('#temperature').html(temp + '°F');
+      }
       $('#weather_image').attr('src', 'http://openweathermap.org/img/w/' + response.weather[0].icon + '.png');
       $("#humidity").html(response.main.humidity);
       $("#wind-speed").html(response.wind.speed);
@@ -117,7 +123,7 @@ function unixTime(uTime) {
   return humanDateFormat;
 }
 
-// function to conver the Kelvin degrees to Fehrenheit
+// function to convert Kelvin degrees to Fehrenheit
 function kelvin2F (temp) {
   temp = (temp - 273.15) * 1.80 + 32;
   temp = parseFloat(temp).toFixed(2);
@@ -139,7 +145,7 @@ $('#cityText').keypress(function (event) {
   }
 });
 
-// zip code search to be in later releases
+// onclick events for the zip code search
 $('.zipbtn').click(function(event) {
   event.preventDefault();
   let searchZip = $( '#zipText' ).val();
