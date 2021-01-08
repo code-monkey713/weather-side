@@ -81,75 +81,33 @@ function searchWeather(city, zipcode) {
       
       localStorage.setItem('lastSearch', `${response.name}`);
 
+      // check if the city name is already in the array
       let history = false;
-      console.log(response.name);
       for (let i = 0; i < arrCities.length; i++) {
-        if (response.name.includes(arrCities.city)) {
-          console.log('TESTING!!!');
+        if (response.name.includes(arrCities[i].city)) {
           history = true;
-          // break;
         }
       }
-      console.log(history);
+
+      // only create city button if the city searched is not in the array
       if (history === false) {
-        console.log('City is not in history!');
         arrCities.push({
           city: response.name,
           desc: response.weather[0].description,
           lat: response.coord.lat,
           lon: response.coord.lon
         });
-        console.log(arrCities);
+        addCity(response.name, response.weather[0].description);
+        $('.cityButton').on('click', (function (event) {
+          preventDefault();
+          searchWeather($(this).val(), false);
+        }));
       }
 
-      
-      //   console.log('City is on the array!');
-      //   arrCities.push({
-      //     city: response.name,
-      //     desc: response.weather[0].description,
-      //     lat: response.coord.lat,
-      //     lon: response.coord.lon
-      //   });
-      //   addCity(response.name, response.weather[0].description);
-      //   console.log(arrCities);
-      // } else {
-      //   console.log('City not in the array!');
-      //   console.log(arrCities);
-      //   arrCities.push({
-      //     city: response.name,
-      //     desc: response.weather[0].description,
-      //     lat: response.coord.lat,
-      //     lon: response.coord.lon
-      //   });
-        addCity(response.name, response.weather[0].description);
-        // $('.cityButton').on('click', (function () {
-        //   searchWeather($(this).val(), false);
-        // }));
-      
-
-      // addCity(response.name, response.weather[0].description)
-      // $('.cityButton').on('click', (function () {
-      //   searchWeather($(this).val(), false);
-      // }));
-      //createCity();
       getUVindex(currLatitude, currLongitude);
     });
   });
 }
-
-function createCity() {
-  $('#cities').empty();
-  for (var i = 0; i < movies.length; i++) {
-    arrCities.forEach(function (thisCity) {
-      const cityEl = $('<div>').attr({ 'class': 'col-12 cityBtn' });
-      $('#cities').append(city);
-      const cityBtn = $('<button>').attr({ 'class': 'col-12 btn-primary cityButton capitalise' }).text(`${thisCity.cityName}: ${thisCity.desc}`);
-      //cityBtn = text.toUpperCase();
-      cityEl.append(cityBtn);
-      city.append(cityEl);
-    })
-  }};
-
 
 // function to add the button with the city name and current weather description
 function addCity(name, desc) {
