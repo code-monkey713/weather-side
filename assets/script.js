@@ -71,13 +71,6 @@ function searchWeather(city, zipcode) {
       let currDate = moment().format('L');
       $('#city').html(`${response.name} (${currDate})`);
       $('#temperature').html(response.main.temp + '°F');
-      // temperatures returned from zip code search is not in Fehrenheit temperature by default
-      // if (zipcode === false) {
-      //   $('#temperature').html(response.main.temp + '°F');
-      // } else {
-      //   let temp = kelvin2F(response.main.temp);
-      //   $('#temperature').html(temp + '°F');
-      // }
       $('#weather_image').attr('src', 'http://openweathermap.org/img/w/' + response.weather[0].icon + '.png');
       $("#humidity").html(response.main.humidity);
       $("#wind-speed").html(response.wind.speed);
@@ -88,18 +81,52 @@ function searchWeather(city, zipcode) {
       
       localStorage.setItem('lastSearch', `${response.name}`);
 
-      if (response.name.includes(arrCities)) {
-        console.log('City is on the array!');
-        arrCities.push(`city: ${response.name}, lat: ${response.coord.lat}, lon: ${response.coord.lon}, desc: ${response.weather[0].description}`);
+      let history = false;
+      console.log(response.name);
+      for (let i = 0; i < arrCities.length; i++) {
+        if (response.name.includes(arrCities.city)) {
+          console.log('TESTING!!!');
+          history = true;
+          // break;
+        }
+      }
+      console.log(history);
+      if (history === false) {
+        console.log('City is not in history!');
+        arrCities.push({
+          city: response.name,
+          desc: response.weather[0].description,
+          lat: response.coord.lat,
+          lon: response.coord.lon
+        });
         console.log(arrCities);
-      } else {
-        console.log('City not in the array!');
-        console.log(arrCities);
-        // addCity(response.name, response.weather[0].description)
+      }
+
+      
+      //   console.log('City is on the array!');
+      //   arrCities.push({
+      //     city: response.name,
+      //     desc: response.weather[0].description,
+      //     lat: response.coord.lat,
+      //     lon: response.coord.lon
+      //   });
+      //   addCity(response.name, response.weather[0].description);
+      //   console.log(arrCities);
+      // } else {
+      //   console.log('City not in the array!');
+      //   console.log(arrCities);
+      //   arrCities.push({
+      //     city: response.name,
+      //     desc: response.weather[0].description,
+      //     lat: response.coord.lat,
+      //     lon: response.coord.lon
+      //   });
+        addCity(response.name, response.weather[0].description);
         // $('.cityButton').on('click', (function () {
         //   searchWeather($(this).val(), false);
         // }));
-      }
+      
+
       // addCity(response.name, response.weather[0].description)
       // $('.cityButton').on('click', (function () {
       //   searchWeather($(this).val(), false);
