@@ -1,16 +1,12 @@
+// takes the current hour and apply body background according to the hour of the day
 let currHour = moment().format('H');
-// let currHour = 7;
-switch (currHour) {
-  case currHour < 8:
-    $('document.body').addClass('moonlitnight');
-    break;
-  case currHour >= 8 && currHour < 16:
-    $('document.body').addClass('coolsky');
-    break;
-  case currHour >= 16:
-    $('document.body').addClass('noontodusk');
-    break;
-}
+if (currHour < 8) {
+  document.body.className = 'moonlitnight';
+} else if (currHour < 16) {
+  document.body.className = 'coolsky';
+} else {
+  document.body.className = 'noontodusk';
+};
 
 let APIkey = '3d865cbadda85d3313ed6811a5f0f35d';
 let queryURL = '';
@@ -65,7 +61,7 @@ function searchWeather(city, zipcode) {
   $(document).ready(function () {
     if (zipcode === false) {queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${APIkey}`;
     } else {
-      queryURL = `https://api.openweathermap.org/data/2.5/weather?zip=${zipcode}&appid=${APIkey}`;
+      queryURL = `https://api.openweathermap.org/data/2.5/weather?zip=${zipcode}&units=imperial&appid=${APIkey}`;
     }
     $.ajax({
       url: queryURL, 
@@ -74,13 +70,7 @@ function searchWeather(city, zipcode) {
       console.log(response);
       let currDate = moment().format('L');
       $('#city').html(`${response.name} (${currDate})`);
-      // temperatures returned from zip code search is not in Fehrenheit temperature by default
-      if (zipcode === false) {
-        $('#temperature').html(response.main.temp + '°F');
-      } else {
-        let temp = kelvin2F(response.main.temp);
-        $('#temperature').html(temp + '°F');
-      }
+      $('#temperature').html(response.main.temp + '°F');
       $('#weather_image').attr('src', 'http://openweathermap.org/img/w/' + response.weather[0].icon + '.png');
       $("#humidity").html(response.main.humidity);
       $("#wind-speed").html(response.wind.speed);
@@ -90,11 +80,30 @@ function searchWeather(city, zipcode) {
       currLongitude = response.coord.lon;
       
       localStorage.setItem('lastSearch', `${response.name}`);
-      addCity(response.name, response.weather[0].description)
-      $('.cityButton').on('click', (function () {
-        searchWeather($(this).val(), false);
-      }));
-      
+
+      // check if the city name is already in the array
+      let history = false;
+      for (let i = 0; i < arrCities.length; i++) {
+        if (response.name.includes(arrCities[i].city)) {
+          history = true;
+        }
+      }
+
+      // only create city button if the city searched is not in the array
+      if (history === false) {
+        arrCities.push({
+          city: response.name,
+          desc: response.weather[0].description,
+          lat: response.coord.lat,
+          lon: response.coord.lon
+        });
+        addCity(response.name, response.weather[0].description);
+        $('.cityButton').on('click', (function (event) {
+          preventDefault();
+          searchWeather($(this).val(), false);
+        }));
+      }
+
       getUVindex(currLatitude, currLongitude);
     });
   });
@@ -103,7 +112,7 @@ function searchWeather(city, zipcode) {
 // function to add the button with the city name and current weather description
 function addCity(name, desc) {
   let addCity = $('<div>');
-  let cityName = $('<button>').text(`${name} : ${desc}`).attr('class', 'cityButton col-12 bg-primary').prop('value', `${name}`);
+  let cityName = $('<button>').text(`${name} : ${desc}`).attr('class', 'cityButton col-12 bg-primary').prop('value', name);
   addCity.append(cityName);
   $('#cities').append(addCity);
 }
