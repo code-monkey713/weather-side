@@ -97,16 +97,28 @@ function searchWeather(city, zipcode) {
           lat: response.coord.lat,
           lon: response.coord.lon
         });
-        addCity(response.name, response.weather[0].description);
-        $('.cityButton').on('click', (function (event) {
-          preventDefault();
-          searchWeather($(this).val(), false);
-        }));
       }
-
+      renderCities();
       getUVindex(currLatitude, currLongitude);
     });
   });
+}
+
+function renderCities() {
+  console.log('This is creating the city list');
+  $("#cities").empty();
+  for (var i = 0; i < arrCities.length; i++) {
+    let addCity = $('<div>');
+    let cityName = $('<button>').text(`${arrCities[i].city} : ${arrCities[i].desc}`).attr('class', 'cityButton col-12 bg-primary').prop('value', arrCities[i].name);
+    addCity.append(cityName);
+    $('#cities').append(addCity);
+    console.log('TESTING!!!');
+    $('.cityButton').on('click', (function (event) {
+      preventDefault();
+      searchWeather($(this).arrCities.city, false);
+      console.log('This is assigning the on click event!');
+    }));
+  }
 }
 
 // function to add the button with the city name and current weather description
@@ -115,6 +127,12 @@ function addCity(name, desc) {
   let cityName = $('<button>').text(`${name} : ${desc}`).attr('class', 'cityButton col-12 bg-primary').prop('value', name);
   addCity.append(cityName);
   $('#cities').append(addCity);
+  console.log('TESTING!!!');
+  $('.cityButton').on('click', (function (event) {
+    preventDefault();
+    searchWeather($(this).arrCities.city, false);
+    console.log('This is assigning the on click event!');
+  }));
 }
 
 // function to convert UNIX time to standard local date format
@@ -162,3 +180,8 @@ $('#zipText').keypress(function (event) {
     searchWeather(false, searchZip);
   }
 });
+
+// $(document).on("click", ".cityButton", alertMovieName);
+
+//       // Calling the renderButtons function to display the initial buttons
+//       renderButtons();
