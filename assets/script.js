@@ -113,26 +113,21 @@ function renderCities() {
     addCity.append(cityName);
     $('#cities').append(addCity);
     console.log('TESTING!!!');
-    $('.cityButton').on('click', (function (event) {
-      preventDefault();
-      searchWeather($(this).arrCities.city, false);
-      console.log('This is assigning the on click event!');
-    }));
   }
 }
 
 // function to add the button with the city name and current weather description
 function addCity(name, desc) {
   let addCity = $('<div>');
-  let cityName = $('<button>').text(`${name} : ${desc}`).attr('class', 'cityButton col-12 bg-primary').prop('value', name);
+  let cityName = $('<button>').text(`${name} : ${desc}`).attr('class', 'cityButton col-12 bg-primary').val(name);
   addCity.append(cityName);
   $('#cities').append(addCity);
   console.log('TESTING!!!');
-  $('.cityButton').on('click', (function (event) {
-    preventDefault();
-    searchWeather($(this).arrCities.city, false);
-    console.log('This is assigning the on click event!');
-  }));
+  // $('.cityButton').on('click', (function (event) {
+  //   preventDefault();
+  //   searchWeather($(this).val(),false);
+  //   console.log('This is assigning the on click event!');
+  // }));
 }
 
 // function to convert UNIX time to standard local date format
@@ -181,7 +176,8 @@ $('#zipText').keypress(function (event) {
   }
 });
 
-// $(document).on("click", ".cityButton", alertMovieName);
-
-//       // Calling the renderButtons function to display the initial buttons
-//       renderButtons();
+$(document).on('click', '.cityButton', function (event) {
+  preventDefault();
+  searchWeather($(this).val(),false);
+  console.log('This is assigning the on click event!');
+});
