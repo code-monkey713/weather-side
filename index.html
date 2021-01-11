@@ -12,18 +12,20 @@
 
 <body>
   <main class="container">
-    <nav class="justify-content-center row">
-      <button class="btn btn-danger col-12"><h2>Weather Dashboard</h2></button>
-    </nav>
+    <header class="justify-content-center row">
+      <button class="btn btn-danger col-12">
+        <h2>Weather Dashboard</h2>
+      </button>
+    </header>
     <div class="row">
       <section class="col-md-4 searcharea">
         <aside>
           <form>
-          <p>Search by city name</p>
-          <input id="cityText" type="text" placeholder="City"><button type="button"
-            class="citybtn gradient-button gradient-button-1">Search</button><br>
-          <input id="zipText" type="text" placeholder="Zip Code"><button type="button"
-            class="zipbtn gradient-button gradient-button-1">Search</button><br>
+            <p>Search by city name or zip code</p>
+            <input id="cityText" type="text" placeholder="City"><button type="button"
+              class="citybtn gradient-button gradient-button-1">Search</button><br>
+            <input id="zipText" type="text" placeholder="Zip Code"><button type="button"
+              class="zipbtn gradient-button gradient-button-1">Search</button><br>
           </form>
         </aside>
         <mark id="cities"></mark>

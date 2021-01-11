@@ -105,14 +105,12 @@ function searchWeather(city, zipcode) {
         });
       }
       renderCities();
-
       getUVindex(currLatitude, currLongitude);
     });
   });
 }
 
 function renderCities() {
-  console.log('This is creating the city list');
   $("#cities").empty();
   for (var i = 0; i < arrCities.length; i++) {
     let addCity = $('<div>');
@@ -125,7 +123,6 @@ function renderCities() {
 // function to add the button with the city name and current weather description
 function addCity(name, desc) {
   let addCity = $('<div>');
-
   let cityName = $('<button>').text(`${name} : ${desc}`).attr('class', 'cityButton col-12 bg-primary').val(name);
   addCity.append(cityName);
   $('#cities').append(addCity);
@@ -133,8 +130,7 @@ function addCity(name, desc) {
 
 // function to convert UNIX time to standard local date format
 function unixTime(uTime) {
-  let unixTime = uTime;
-  let milliseconds = unixTime * 1000;
+  let milliseconds = uTime * 1000;
   let dateObject = new Date(milliseconds);
   let humanDateFormat = dateObject.toLocaleDateString();
   return humanDateFormat;
@@ -178,7 +174,5 @@ $('#zipText').keypress(function (event) {
 });
 
 $(document.body).on('click', '.cityButton', function (event) {
-  console.log('This is the on click event!');
-  // preventDefault();
   searchWeather($(this).val(),false);
 });
