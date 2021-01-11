@@ -120,14 +120,6 @@ function renderCities() {
   }
 }
 
-// function to add the button with the city name and current weather description
-function addCity(name, desc) {
-  let addCity = $('<div>');
-  let cityName = $('<button>').text(`${name} : ${desc}`).attr('class', 'cityButton col-12 bg-primary').val(name);
-  addCity.append(cityName);
-  $('#cities').append(addCity);
-}
-
 // function to convert UNIX time to standard local date format
 function unixTime(uTime) {
   let milliseconds = uTime * 1000;
@@ -173,6 +165,7 @@ $('#zipText').keypress(function (event) {
   }
 });
 
+// onclick events for searched cities button
 $(document.body).on('click', '.cityButton', function (event) {
   searchWeather($(this).val(),false);
 });
