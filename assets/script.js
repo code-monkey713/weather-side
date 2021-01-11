@@ -61,7 +61,7 @@ function searchWeather(city, zipcode) {
   $(document).ready(function () {
     if (zipcode === false) {queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${APIkey}`;
     } else {
-      queryURL = `https://api.openweathermap.org/data/2.5/weather?zip=${zipcode}&units=imperial&appid=${APIkey}`;
+      queryURL = `https://api.openweathermap.org/data/2.5/weather?zip=${zipcode}&appid=${APIkey}`;
     }
     $.ajax({
       url: queryURL, 
@@ -70,7 +70,13 @@ function searchWeather(city, zipcode) {
       console.log(response);
       let currDate = moment().format('L');
       $('#city').html(`${response.name} (${currDate})`);
-      $('#temperature').html(response.main.temp + '°F');
+      // temperatures returned from zip code search is not in Fehrenheit temperature by default
+      if (zipcode === false) {
+        $('#temperature').html(response.main.temp + '°F');
+      } else {
+        let temp = kelvin2F(response.main.temp);
+        $('#temperature').html(temp + '°F');
+      }
       $('#weather_image').attr('src', 'http://openweathermap.org/img/w/' + response.weather[0].icon + '.png');
       $("#humidity").html(response.main.humidity);
       $("#wind-speed").html(response.wind.speed);
@@ -99,6 +105,7 @@ function searchWeather(city, zipcode) {
         });
       }
       renderCities();
+
       getUVindex(currLatitude, currLongitude);
     });
   });
@@ -118,6 +125,7 @@ function renderCities() {
 // function to add the button with the city name and current weather description
 function addCity(name, desc) {
   let addCity = $('<div>');
+
   let cityName = $('<button>').text(`${name} : ${desc}`).attr('class', 'cityButton col-12 bg-primary').val(name);
   addCity.append(cityName);
   $('#cities').append(addCity);
