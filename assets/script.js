@@ -109,10 +109,9 @@ function renderCities() {
   $("#cities").empty();
   for (var i = 0; i < arrCities.length; i++) {
     let addCity = $('<div>');
-    let cityName = $('<button>').text(`${arrCities[i].city} : ${arrCities[i].desc}`).attr('class', 'cityButton col-12 bg-primary').prop('value', arrCities[i].name);
+    let cityName = $('<button>').text(`${arrCities[i].city} : ${arrCities[i].desc}`).attr({value:arrCities[i].city, class:'cityButton col-12 bg-primary'});
     addCity.append(cityName);
     $('#cities').append(addCity);
-    console.log('TESTING!!!');
   }
 }
 
@@ -122,12 +121,6 @@ function addCity(name, desc) {
   let cityName = $('<button>').text(`${name} : ${desc}`).attr('class', 'cityButton col-12 bg-primary').val(name);
   addCity.append(cityName);
   $('#cities').append(addCity);
-  console.log('TESTING!!!');
-  // $('.cityButton').on('click', (function (event) {
-  //   preventDefault();
-  //   searchWeather($(this).val(),false);
-  //   console.log('This is assigning the on click event!');
-  // }));
 }
 
 // function to convert UNIX time to standard local date format
@@ -176,8 +169,8 @@ $('#zipText').keypress(function (event) {
   }
 });
 
-$(document).on('click', '.cityButton', function (event) {
-  preventDefault();
+$(document.body).on('click', '.cityButton', function (event) {
+  console.log('This is the on click event!');
+  // preventDefault();
   searchWeather($(this).val(),false);
-  console.log('This is assigning the on click event!');
 });
