@@ -86,20 +86,47 @@ function searchWeather(city, zipcode) {
       currLongitude = response.coord.lon;
       
       localStorage.setItem('lastSearch', `${response.name}`);
-      addCity(response.name, response.weather[0].description)
-      $('.cityButton').on('click', (function () {
-        searchWeather($(this).val(), false);
-      }));
-      
+
+      // check if the city name is already in the array
+      let history = false;
+      for (let i = 0; i < arrCities.length; i++) {
+        if (response.name.includes(arrCities[i].city)) {
+          history = true;
+        }
+      }
+
+      // only create city button if the city searched is not in the array
+      if (history === false) {
+        arrCities.push({
+          city: response.name,
+          desc: response.weather[0].description,
+          lat: response.coord.lat,
+          lon: response.coord.lon
+        });
+      }
+      renderCities();
+
       getUVindex(currLatitude, currLongitude);
     });
   });
 }
 
+function renderCities() {
+  console.log('This is creating the city list');
+  $("#cities").empty();
+  for (var i = 0; i < arrCities.length; i++) {
+    let addCity = $('<div>');
+    let cityName = $('<button>').text(`${arrCities[i].city} : ${arrCities[i].desc}`).attr({value:arrCities[i].city, class:'cityButton col-12 bg-primary'});
+    addCity.append(cityName);
+    $('#cities').append(addCity);
+  }
+}
+
 // function to add the button with the city name and current weather description
 function addCity(name, desc) {
   let addCity = $('<div>');
-  let cityName = $('<button>').text(`${name} : ${desc}`).attr('class', 'cityButton col-12 bg-primary').prop('value', `${name}`);
+
+  let cityName = $('<button>').text(`${name} : ${desc}`).attr('class', 'cityButton col-12 bg-primary').val(name);
   addCity.append(cityName);
   $('#cities').append(addCity);
 }
@@ -148,4 +175,10 @@ $('#zipText').keypress(function (event) {
     let searchZip = $( '#zipText' ).val();
     searchWeather(false, searchZip);
   }
+});
+
+$(document.body).on('click', '.cityButton', function (event) {
+  console.log('This is the on click event!');
+  // preventDefault();
+  searchWeather($(this).val(),false);
 });
