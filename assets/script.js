@@ -31,8 +31,10 @@ function getUVindex(lat, lon) {
       $("#UVindex").html(UVindex);
       if (UVindex <= 2) {
         $('#UVindex').css('background-color', 'green');
+        $('#UVindex').css('color', 'white');
       } else if (UVindex > 2 && UVindex <= 5) {
         $('#UVindex').css('background-color', 'yellow');
+        $('#UVindex').css('color', 'black');
       } else if (UVindex > 5 && UVindex <= 7) {
         $('#UVindex').css('background-color', 'orange');
       } else if (UVindex > 7) {
