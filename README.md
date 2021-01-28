@@ -19,7 +19,7 @@ You can open the app on the browser to view the content. There are no special in
 
 ## Usage
 
-The app will open up with a a field to search by the city name or by the zip code if you are in the United States. Once the city name or zip code is entered, either click on the 'search' button or press 'Enter' on your keyboard to initiate the search. Your current weather and 5-days forecast will appear if you entered a valid city name or zip code. 
+The app will open up with a field to search by the city name or by the zip code if you are in the United States. Once the city name or zip code is entered, either click on the 'search' button or press 'Enter' on your keyboard to initiate the search. Your current weather and 5-days forecast will appear if you entered a valid city name or zip code. 
 
 Your search history will appear on the left hand side where you can click on to jump back to the weather for the city you selected. 
 
