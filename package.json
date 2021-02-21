@@ -1,6 +1,10 @@
 {
   "name": "weather-side",
   "version": "1.0.0",
+  "engines": {
+    "node": "15.x",
+    "npm": "7.x"
+  },
   "description": "This is my weather app with 5-days forecast using open weather API calls.",
   "main": "server.js",
   "scripts": {
