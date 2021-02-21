@@ -1,0 +1,28 @@
+{
+  "name": "weather-side",
+  "version": "1.0.0",
+  "engines": {
+    "node": "15.x",
+    "npm": "7.x"
+  },
+  "description": "This is my weather app with 5-days forecast using open weather API calls.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/code-monkey713/weather-side.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/code-monkey713/weather-side/issues"
+  },
+  "homepage": "https://github.com/code-monkey713/weather-side#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
