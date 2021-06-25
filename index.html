@@ -1,89 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="assets/reset.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="assets/style.css" />
+    <title>Weather Side Are You On?</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="assets/reset.css" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="assets/style.css" />
-  <title>Weather Side Are You On?</title>
-</head>
+  <body>
+    <main class="container">
+      <header class="justify-content-center row">
+        <button class="btn btn-danger col-12">
+          <h2>Weather Dashboard</h2>
+        </button>
+      </header>
+      <div class="row">
+        <section class="col-md-4 searcharea">
+          <aside>
+            <form>
+              <p>Search by city name or zip code</p>
+              <input id="cityText" type="text" placeholder="City" /><button
+                type="button"
+                class="citybtn gradient-button gradient-button-1"
+              >
+                Search</button
+              ><br />
+              <input id="zipText" type="text" placeholder="Zip Code" /><button
+                type="button"
+                class="zipbtn gradient-button gradient-button-1"
+              >
+                Search</button
+              ><br />
+            </form>
+          </aside>
+          <article id="cities"></article>
+        </section>
+        <section class="col-md-7">
+          <div class="row">
+            <main class="col">
+              <h4><span id="city"></span><img id="weather_image" src="" /></h4>
+              <p>Temperature: <span id="temperature"></span></p>
+              <p>Humidity: <span id="humidity"></span>%</p>
+              <p>Wind Speed: <span id="wind-speed"></span> MPH</p>
+              <p>UV Index: <span id="UVindex"></span></p>
+              <p>Country: <span id="country"></span></p>
+            </main>
+          </div>
+          <header class="row justify-content-center">5-Day Forecast:</header>
+          <summary class="row" id="daysForecast">
+            <aside
+              class="col-md-4 col-lg-3 forecast card text-white bg-primary m-1"
+              id="day1"
+            >
+              <span class="fDate"></span>
+              <span class="fIcon"><img class="foreImage" src="" /></span>
+              <span class="fTemp"></span>
+              <span class="fHumidity"></span>
+            </aside>
+            <aside
+              class="col-md-4 col-lg-3 forecast card text-white bg-primary m-1"
+              id="day2"
+            >
+              <span class="fDate"></span>
+              <span class="fIcon"><img class="foreImage" src="" /></span>
+              <span class="fTemp"></span>
+              <span class="fHumidity"></span>
+            </aside>
+            <aside
+              class="col-md-4 col-lg-3 forecast card text-white bg-primary m-1"
+              id="day3"
+            >
+              <span class="fDate"></span>
+              <span class="fIcon"><img class="foreImage" src="" /></span>
+              <span class="fTemp"></span>
+              <span class="fHumidity"></span>
+            </aside>
+            <aside
+              class="col-md-4 col-lg-3 forecast card text-white bg-primary m-1"
+              id="day4"
+            >
+              <span class="fDate"></span>
+              <span class="fIcon"><img class="foreImage" src="" /></span>
+              <span class="fTemp"></span>
+              <span class="fHumidity"></span>
+            </aside>
+            <aside
+              class="col-md-4 col-lg-3 forecast card text-white bg-primary m-1"
+              id="day5"
+            >
+              <span class="fDate"></span>
+              <span class="fIcon"><img class="foreImage" src="" /></span>
+              <span class="fTemp"></span>
+              <span class="fHumidity"></span>
+            </aside>
+          </summary>
+        </section>
+      </div>
+    </main>
 
-<body>
-  <main class="container">
-    <header class="justify-content-center row">
-      <button class="btn btn-danger col-12">
-        <h2>Weather Dashboard</h2>
-      </button>
-    </header>
-    <div class="row">
-      <section class="col-md-4 searcharea">
-        <aside>
-          <form>
-            <p>Search by city name or zip code</p>
-            <input id="cityText" type="text" placeholder="City"><button type="button"
-              class="citybtn gradient-button gradient-button-1">Search</button><br>
-            <input id="zipText" type="text" placeholder="Zip Code"><button type="button"
-              class="zipbtn gradient-button gradient-button-1">Search</button><br>
-          </form>
-        </aside>
-        <article id="cities"></article>
-      </section>
-      <section class="col-md-7">
-        <div class="row">
-          <main class="col">
-            <h4><span id="city"></span><img id="weather_image" src=""></h4>
-            <p>Temperature: <span id="temperature"></span></p>
-            <p>Humidity: <span id="humidity"></span>%</p>
-            <p>Wind Speed: <span id="wind-speed"></span> MPH</p>
-            <p>UV Index: <span id="UVindex"></span></p>
-            <p>Country: <span id="country"></span></p>
-          </main>
-        </div>
-        <header class="row justify-content-center">
-          5-Day Forecast:
-        </header>
-        <summary class="row" id="daysForecast">
-          <aside class="col-md-4 col-lg-3 forecast card text-white bg-primary m-1" id="day1">
-            <span class="fDate"></span>
-            <span class="fIcon"><img class="foreImage" src=""></span>
-            <span class="fTemp"></span>
-            <span class="fHumidity"></span>
-          </aside>
-          <aside class="col-md-4 col-lg-3 forecast card text-white bg-primary m-1" id="day2">
-            <span class="fDate"></span>
-            <span class="fIcon"><img class="foreImage" src=""></span>
-            <span class="fTemp"></span>
-            <span class="fHumidity"></span>
-          </aside>
-          <aside class="col-md-4 col-lg-3 forecast card text-white bg-primary m-1" id="day3">
-            <span class="fDate"></span>
-            <span class="fIcon"><img class="foreImage" src=""></span>
-            <span class="fTemp"></span>
-            <span class="fHumidity"></span>
-          </aside>
-          <aside class="col-md-4 col-lg-3 forecast card text-white bg-primary m-1" id="day4">
-            <span class="fDate"></span>
-            <span class="fIcon"><img class="foreImage" src=""></span>
-            <span class="fTemp"></span>
-            <span class="fHumidity"></span>
-          </aside>
-          <aside class="col-md-4 col-lg-3 forecast card text-white bg-primary m-1" id="day5">
-            <span class="fDate"></span>
-            <span class="fIcon"><img class="foreImage" src=""></span>
-            <span class="fTemp"></span>
-            <span class="fHumidity"></span>
-          </aside>
-        </summary>
-      </section>
-    </div>
-  </main>
-
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-  <script src="assets/country.js"></script>
-  <script src="assets/script.js"></script>
-</body>
-
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="assets/country.js"></script>
+    <script src="assets/script.js"></script>
+  </body>
 </html>
